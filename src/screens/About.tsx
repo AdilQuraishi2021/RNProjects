@@ -25,9 +25,24 @@ const carouselImages = [
 ];
 
 const teamMembers = [
-  { id: "1", name: "Alice", role: "Architect", img: { uri: "https://i.pravatar.cc/100?img=11" } },
-  { id: "2", name: "Bob", role: "Engineer",  img: { uri: "https://i.pravatar.cc/100?img=12" } },
-  { id: "3", name: "Charlie", role: "Installer", img: { uri: "https://i.pravatar.cc/100?img=13" } },
+  {
+    id: "1",
+    name: "Alice",
+    role: "Architect",
+    img: { uri: "https://i.pravatar.cc/100?img=11" },
+  },
+  {
+    id: "2",
+    name: "Bob",
+    role: "Engineer",
+    img: { uri: "https://i.pravatar.cc/100?img=12" },
+  },
+  {
+    id: "3",
+    name: "Charlie",
+    role: "Installer",
+    img: { uri: "https://i.pravatar.cc/100?img=13" },
+  },
 ];
 
 export default function About() {
@@ -38,7 +53,10 @@ export default function About() {
   useEffect(() => {
     const timer = setInterval(() => {
       indexRef.current = (indexRef.current + 1) % carouselImages.length;
-      scrollRef.current?.scrollTo({ x: width * indexRef.current, animated: true });
+      scrollRef.current?.scrollTo({
+        x: width * indexRef.current,
+        animated: true,
+      });
     }, 3000);
     return () => clearInterval(timer);
   }, []);
@@ -96,60 +114,60 @@ export default function About() {
 
         {/* Section 3: Horizontal Vision & Mission */}
         <View style={styles.infoSectionHorizontal}>
-  {/* Vision */}
-  <View style={styles.infoBoxHorizontal}>
-    <MaskedView
-      maskElement={
-        <Text style={styles.infoTitle}>Vision</Text>
-      }
-    >
-      <LinearGradient
-        colors={["#0A657E", "#00CFFF"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      >
-        <Text style={[styles.infoTitle, { opacity: 1 }]}>Vision</Text>
-      </LinearGradient>
-    </MaskedView>
+          {/* Vision */}
+          <View style={styles.infoBoxHorizontal}>
+            <MaskedView
+              maskElement={<Text style={styles.infoTitle}>Vision</Text>}
+            >
+              <LinearGradient
+                colors={["#0A657E", "#00CFFF"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Text style={[styles.infoTitle, { opacity: 1 }]}>Vision</Text>
+              </LinearGradient>
+            </MaskedView>
 
-    {[
-      "Become the most trusted provider of sustainable architectural solutions for windows and doors.",
-      "Redefine modern interiors with designs that merge elegance, functionality, and natural light.",
-      "Lead the industry in eco-friendly and energy-efficient innovations.",
-      "Inspire living and working spaces that connect people with nature and improve everyday comfort.",
-      "Set a benchmark for quality craftsmanship and timeless design worldwide.",
-    ].map((line, idx) => (
-      <Text key={idx} style={styles.bulletText}>• {line}</Text>
-    ))}
-  </View>
+            {[
+              "Become the most trusted provider of sustainable architectural solutions for windows and doors.",
+              "Redefine modern interiors with designs that merge elegance, functionality, and natural light.",
+              "Lead the industry in eco-friendly and energy-efficient innovations.",
+              "Inspire living and working spaces that connect people with nature and improve everyday comfort.",
+              "Set a benchmark for quality craftsmanship and timeless design worldwide.",
+            ].map((line, idx) => (
+              <Text key={idx} style={styles.bulletText}>
+                • {line}
+              </Text>
+            ))}
+          </View>
 
-  {/* Mission */}
-  <View style={styles.infoBoxHorizontal}>
-    <MaskedView
-      maskElement={
-        <Text style={styles.infoTitle}>Mission</Text>
-      }
-    >
-      <LinearGradient
-        colors={["#0A657E", "#00CFFF"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      >
-        <Text style={[styles.infoTitle, { opacity: 0 }]}>Mission</Text>
-      </LinearGradient>
-    </MaskedView>
+          {/* Mission */}
+          <View style={styles.infoBoxHorizontal}>
+            <MaskedView
+              maskElement={<Text style={styles.infoTitle}>Mission</Text>}
+            >
+              <LinearGradient
+                colors={["#0A657E", "#00CFFF"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Text style={[styles.infoTitle, { opacity: 0 }]}>Mission</Text>
+              </LinearGradient>
+            </MaskedView>
 
-    {[
-      "Design and supply premium windows and doors tailored to every client’s unique space.",
-      "Deliver uncompromising quality, durability, and exceptional design in every product.",
-      "Use eco-conscious materials and advanced technology to reduce environmental impact.",
-      "Provide seamless installation and outstanding after-sales support for lasting satisfaction.",
-      "Continuously innovate and collaborate with architects, designers, and homeowners to meet evolving needs.",
-    ].map((line, idx) => (
-      <Text key={idx} style={styles.bulletText}>• {line}</Text>
-    ))}
-  </View>
-</View>
+            {[
+              " supply premium windows and doors tailored to every client’s unique space.",
+              "Deliver uncompromising quality, durability, and exceptional design in every product.",
+              "Use eco-conscious materials and advanced technology to reduce environmental impact.",
+              "Provide seamless installation and outstanding after-sales support for lasting satisfaction.",
+              "Continuously innovate and collaborate with architects, designers, and homeowners to meet evolving needs.",
+            ].map((line, idx) => (
+              <Text key={idx} style={styles.bulletText}>
+                • {line}
+              </Text>
+            ))}
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -174,33 +192,32 @@ const styles = StyleSheet.create({
 
   /* --- Horizontal Mission & Vision --- */
   infoSectionHorizontal: {
-  flexDirection: "row",
-  padding: 20,
-  justifyContent: "space-between",
-},
-infoBoxHorizontal: {
-  flex: 1,
-  backgroundColor: "#fefefe",
-  borderRadius: 12,
-  padding: 16,
-  marginHorizontal: 5,
-  borderWidth: 1,
-  borderColor: "#e5e5e5",
-  shadowColor: "#000",
-  shadowOpacity: 0.05,
-  shadowRadius: 6,
-  elevation: 2,
-},
-infoTitle: {
-  fontSize: 22,
-  fontWeight: "800",
-  marginBottom: 12,
-},
-bulletText: {
-  fontSize: 15,
-  lineHeight: 22,
-  color: "#555",
-  marginBottom: 6,
-},
-
+    flexDirection: "row",
+    padding: 20,
+    justifyContent: "space-between",
+  },
+  infoBoxHorizontal: {
+    flex: 1,
+    backgroundColor: "#fefefe",
+    borderRadius: 12,
+    padding: 16,
+    marginHorizontal: 5,
+    borderWidth: 1,
+    borderColor: "#e5e5e5",
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  infoTitle: {
+    fontSize: 22,
+    fontWeight: "800",
+    marginBottom: 12,
+  },
+  bulletText: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: "#555",
+    marginBottom: 6,
+  },
 });
