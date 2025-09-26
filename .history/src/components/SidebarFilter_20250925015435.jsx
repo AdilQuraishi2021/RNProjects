@@ -1,0 +1,186 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from "react-native";
+
+export default function SidebarFilter({ onApply }) {
+  // ----- Filter Options -----
+  const typeOptions = ["Sliding", "Casement"];
+  const materialOptions = ["Aluminium", "Wood", "Vinyl"];
+  const sizeOptions = ["Standard", "Custom"];
+
+  // ----- State -----
+  const [selected, setSelected] = useState({
+    type: [],
+    material: [],
+    size: [],
+  });
+
+  // Toggle logic
+  const toggleOption = (category, value) => {
+    setSelected((prev) => {
+      const current = prev[category];
+      return {
+        ...prev,
+        [category]: current.includes(value)
+          ? current.filter((v) => v !== value)
+          : [...current, value],
+      };
+    });
+  };
+
+  const applyFilters = () => {
+    if (onApply) onApply(selected);
+  };
+
+  return (
+    <ScrollView style={styles.sidebar} contentContainerStyle={styles.container}>
+      <Text style={styles.sidebarTitle}>Filter By</Text>
+
+      {/* TYPE */}
+      <FilterCategory
+        title="Type"
+        options={typeOptions}
+        selected={selected.type}
+        onToggle={(val) => toggleOption("type", val)}
+      />
+
+      {/* MATERIAL */}
+      <FilterCategory
+        title="Material"
+        options={materialOptions}
+        selected={selected.material}
+        onToggle={(val) => toggleOption("material", val)}
+      />
+
+      {/* SIZE */}
+      <FilterCategory
+        title="Size"
+        options={sizeOptions}
+        selected={selected.size}
+        onToggle={(val) => toggleOption("size", val)}
+      />
+
+      {/* APPLY BUTTON */}
+      <TouchableOpacity style={styles.applyBtn} onPress={applyFilters}>
+        <Text style={styles.applyBtnText}>View Results</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
+}
+
+// ---- Filter Category Card ----
+function FilterCategory({ title, options, selected, onToggle }) {
+  return (
+    <View style={styles.filterCard}>
+      <Text style={styles.filterCardTitle}>{title}</Text>
+      <View style={styles.chipContainer}>
+        {options.map((opt) => (
+          <TouchableOpacity
+            key={opt}
+            style={[
+              styles.chip,
+              selected.includes(opt) ? styles.chipSelected : null,
+            ]}
+            onPress={() => onToggle(opt)}
+          >
+            <Text
+              style={[
+                styles.chipText,
+                selected.includes(opt) ? styles.chipTextSelected : null,
+              ]}
+            >
+              {opt}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+// ---- Styles ----
+const styles = StyleSheet.create({
+  sidebar: {
+    width: 260,
+    backgroundColor: "#fefefe",
+    borderRightWidth: 1,
+    borderColor: "#e0e0e0",
+  },
+  container: {
+    padding: 16,
+    paddingBottom: 40,
+  },
+  sidebarTitle: {
+    fontSize: 22,
+    fontWeight: "700",
+    marginBottom: 20,
+    color: "#0A657E",
+  },
+
+  filterCard: {
+    marginBottom: 20,
+    padding: 16,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowOpacity: 0.05,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 4 },
+      },
+      android: { elevation: 3 },
+      web: { boxShadow: "0 4px 12px rgba(0,0,0,0.08)" },
+    }),
+  },
+  filterCardTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    marginBottom: 12,
+    color: "#333",
+  },
+  chipContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  chip: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    marginBottom: 8,
+    backgroundColor: "#f8f8f8",
+  },
+  chipSelected: {
+    backgroundColor: "#0A657E",
+    borderColor: "#0A657E",
+  },
+  chipText: {
+    fontSize: 14,
+    color: "#444",
+    fontWeight: "500",
+  },
+  chipTextSelected: {
+    color: "#fff",
+  },
+  applyBtn: {
+    marginTop: 10,
+    backgroundColor: "#0A657E",
+    paddingVertical: 14,
+    borderRadius: 30,
+    alignItems: "center",
+  },
+  applyBtnText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+});
