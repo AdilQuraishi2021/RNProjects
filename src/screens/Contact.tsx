@@ -1,11 +1,25 @@
 // screens/Contact.js
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  ScrollView,
+} from "react-native";
 import Header from "../components/Header";
 import { Colors } from "../Style/Theme";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+    location: "",
+    phone: "",
+  });
 
   const onSubmit = () => {
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
@@ -19,8 +33,11 @@ export default function Contact() {
     }
 
     // Mock submit:
-    Alert.alert("Thanks", "Your message has been sent. We'll get back to you shortly.");
-    setForm({ name: "", email: "", message: "" });
+    Alert.alert(
+      "Thanks",
+      "Your message has been sent. We'll get back to you shortly."
+    );
+    setForm({ name: "", email: "", message: "", location: "", phone: "" });
   };
 
   return (
@@ -28,7 +45,11 @@ export default function Contact() {
       <Header />
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.label}>Name</Text>
-        <TextInput style={styles.input} value={form.name} onChangeText={(t) => setForm((s) => ({ ...s, name: t }))} />
+        <TextInput
+          style={styles.input}
+          value={form.name}
+          onChangeText={(t) => setForm((s) => ({ ...s, name: t }))}
+        />
 
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -44,6 +65,21 @@ export default function Contact() {
           value={form.message}
           onChangeText={(t) => setForm((s) => ({ ...s, message: t }))}
           multiline
+        />
+
+        <Text style={styles.label}>Location</Text>
+        <TextInput
+          style={styles.input}
+          value={form.location}
+          onChangeText={(t) => setForm((s) => ({ ...s, location: t }))}
+        />
+
+        <Text style={styles.label}>Phone</Text>
+        <TextInput
+          style={styles.input}
+          value={form.phone}
+          onChangeText={(t) => setForm((s) => ({ ...s, phone: t }))}
+          keyboardType="phone-pad"
         />
 
         <TouchableOpacity style={styles.btn} onPress={onSubmit}>
@@ -65,6 +101,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#eee",
   },
-  btn: { backgroundColor: Colors.primary, padding: 12, borderRadius: 8, alignItems: "center", marginTop: 8 },
+  btn: {
+    backgroundColor: Colors.primary,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 8,
+  },
   btnText: { color: "#fff", fontWeight: "700" },
 });
